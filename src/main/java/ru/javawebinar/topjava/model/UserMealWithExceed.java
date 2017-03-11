@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * GKislin
  * 11.01.2015.
  */
-public class UserMealWithExceed {
+public class  UserMealWithExceed {
     private final LocalDateTime dateTime;
 
     private final String description;
@@ -20,5 +20,19 @@ public class UserMealWithExceed {
         this.description = description;
         this.calories = calories;
         this.exceed = exceed;
+    }
+
+    public UserMealWithExceed(UserMeal userMeal, boolean exceed){
+        this(userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories(), exceed);
+    }
+
+    @Override
+    public String toString() {
+        return "UserMealWithExceed{" +
+                "dateTime=" + dateTime +
+                ", description='" + description + '\'' +
+                ", calories=" + calories +
+                ", exceed=" + exceed +
+                '}';
     }
 }
