@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 
-public class MealSevlet extends HttpServlet {
+public class MealServlet extends HttpServlet {
     MealDao dao = DataMealInListImpl.getInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,7 +21,7 @@ public class MealSevlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<MealWithExceed> mealWithExceeds = MealsUtil.getFilteredWithExceeded(dao.getMeals(),
+        List<MealWithExceed> mealWithExceeds = MealsUtil.getFilteredWithExceeded(dao.getAllMeals(),
                 LocalTime.MIN,
                 LocalTime.MAX,
                 2000);

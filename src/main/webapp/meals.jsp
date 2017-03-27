@@ -11,6 +11,7 @@
     <table border=1>
         <thead>
         <tr>
+            <th>ID</th>
             <th>Дата</th>
             <th>Описание</th>
             <th>Калории</th>
@@ -20,6 +21,7 @@
         <tbody>
         <c:forEach items="${meals}" var="meal">
             <tr bgcolor="${meal.exceed eq true ? "red": "green"}">
+                <td><c:out value="${meal.id}" /></td>
                 <td><javatime:format value="${meal.dateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
                 <td><c:out value="${meal.description}" /></td>
                 <td><c:out value="${meal.calories}" /></td>
