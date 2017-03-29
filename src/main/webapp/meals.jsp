@@ -25,11 +25,12 @@
                 <td><javatime:format value="${meal.dateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
                 <td><c:out value="${meal.description}" /></td>
                 <td><c:out value="${meal.calories}" /></td>
-                <!--<td><a href="UserController?action=edit&userId=<c:out value="${user.userid}"/>">Update</a></td>
-                <td><a href="UserController?action=delete&userId=<c:out value="${user.userid}"/>">Delete</a></td>-->
+                <td><a href="meals?action=edit&Id=<c:out value="${meal.id}"/>">Update</a></td>
+                <td><a href="meals?action=delete&Id=<c:out value="${meal.id}"/>">Delete</a></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <p><a href="meals?action=insert">Add User</a></p>
 </body>
 </html>
