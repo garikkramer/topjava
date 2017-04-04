@@ -1,15 +1,16 @@
 package ru.javawebinar.topjava.repository.mock;
 
 import org.springframework.stereotype.Repository;
+import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -29,15 +30,16 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     public Meal save(Meal meal) {
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
+            meal.setUserId(AuthorizedUser.id());
         }
         repository.put(meal.getId(), meal);
         return meal;
     }
 
     @Override
-    public boolean delete(int id, int userId) {
+    public boolean delete(int id) {
         Meal meal = repository.get(id);
-        if(meal.getUserId() == userId) {
+        if(meal != null && meal.getUserId() == AuthorizedUser.id()) {
             repository.remove(id);
             return true;
         }
@@ -45,16 +47,18 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public Meal get(int id, int userId) {
+    public Meal get(int id) {
         Meal meal = repository.get(id);
-        return meal.getUserId() == userId? meal: null;
+        if(meal != null)
+            return meal.getUserId() == AuthorizedUser.id()? meal: null;
+        return null;
     }
 
     @Override
-    public Collection<Meal> getAll(int userId) {
+    public Collection<Meal> getAll(Predicate<Meal> predicate) {
         return repository.values().stream()
-                .filter(meal -> meal.getUserId() == userId)
-                .sorted(Comparator.comparing(Meal::getDate).reversed())
+                .filter(meal -> meal.getUserId() == AuthorizedUser.id())
+                .filter(predicate)
                 .collect(Collectors.toList());
     }
 }

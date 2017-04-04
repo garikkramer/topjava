@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.to;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * GKislin
@@ -29,6 +31,7 @@ public class MealWithExceed {
         return id;
     }
 
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -55,4 +58,14 @@ public class MealWithExceed {
                 ", exceed=" + exceed +
                 '}';
     }
+
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return dateTime.toLocalTime();
+    }
+
+
 }
